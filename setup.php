@@ -20,7 +20,7 @@
  --------------------------------------------------------------------------
 */
 
-define('PLUGIN_CAMERAINPUT_VERSION', '2.0.2');
+define('PLUGIN_CAMERAINPUT_VERSION', '2.1.0');
 define('PLUGIN_CAMERAINPUT_MIN_GLPI', '10.0.0');
 define('PLUGIN_CAMERAINPUT_MAX_GLPI', '10.1.0');
 
@@ -30,14 +30,10 @@ function plugin_init_camerainput()
 	$PLUGIN_HOOKS['csrf_compliant']['camerainput'] = true;
 
 	if (Plugin::isPluginActive('camerainput')) {
-      $PLUGIN_HOOKS['add_javascript']['camerainput'][] = 'lib/quagga/quagga2.min.js';
+      $PLUGIN_HOOKS['add_javascript']['camerainput'][] = 'public/lib/zbar-wasm/index.js';
+      $PLUGIN_HOOKS['add_javascript']['camerainput'][] = 'public/lib/barcode-detector-polyfill/index.js';
       $PLUGIN_HOOKS['add_javascript']['camerainput'][] = 'js/camerainput.js';
       $PLUGIN_HOOKS['add_css']['camerainput'][] = 'css/camerainput.css';
-      // Add Config Page
-      Plugin::registerClass('PluginCamerainputConfig', ['addtabon' => 'Config']);
-
-      $PLUGIN_HOOKS['pre_item_add']['camerainput']['Config'] = ['PluginCamerainputConfig', 'preAddOrUpdateConfig'];
-      $PLUGIN_HOOKS['pre_item_update']['camerainput']['Config'] = ['PluginCamerainputConfig', 'preAddOrUpdateConfig'];
    }
 }
 
